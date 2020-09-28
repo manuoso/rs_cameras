@@ -1,0 +1,13 @@
+{
+    "camera_name": "d400",
+    "color": {
+        "height": 640,
+        "width": 480,
+        "fps": 30
+    },
+    "depth": {
+        "height": 640,
+        "width": 480,
+        "fps": 30
+    }
+}
