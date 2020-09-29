@@ -1,14 +1,15 @@
 import numpy as np
 import pyrealsense2 as rs
+import cv2
 
-from rscameras import Camera_Base, TypeExcept
+from rscameras.camera_base import Camera_Base, TypeExcept
 
 ####################################################################################################
 class Camera_D400(Camera_Base):
     def __init__(self, config = None):
-        Policy_Base.__init__(self, config)
+        Camera_Base.__init__(self, config)
 
-        if(self.data['camera_name'] != "d400")
+        if(self.data['camera_name'] != "d400"):
             raise TypeExcept("Camera name is not d400")   
 
         self.pipeline = rs.pipeline()
@@ -28,7 +29,7 @@ class Camera_D400(Camera_Base):
         color_frame = frames.get_color_frame()
 
         if not depth_frame or not color_frame:
-            continue
+            pass
 
         # Convert images to numpy arrays
         depth_image = np.asanyarray(depth_frame.get_data())
