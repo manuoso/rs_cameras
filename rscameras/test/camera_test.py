@@ -12,7 +12,17 @@ while True:
     start_time = time.time()
 
     images = cam.get_images()
-    print(cam.get_depth_point([240, 320], got_frame = 0))
+    print(cam.get_depth_point([240, 320], got_frame = 1))
+    print(cam.get_depth_point([240, 320], got_frame = 1))
+    print(cam.get_depth_point([240, 320], got_frame = 1))
+    print(cam.get_depth_point([240, 320], got_frame = 1))
+    print(cam.get_depth_point([240, 320], got_frame = 1))
+    print(cam.get_depth_point([240, 320], got_frame = 1))
+    print(cam.get_depth_point([240, 320], got_frame = 1))
+    print(cam.get_depth_point([240, 320], got_frame = 1))
+    print(cam.get_depth_point([240, 320], got_frame = 1))
+
+
     color = images[0]
     color[235:245,315:325,:] = 0
     images[1][235:245,315:325,:] = 0
