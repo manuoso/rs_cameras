@@ -2,6 +2,9 @@ import os
 import time
 import numpy as np
 import cv2
+
+import fastcom.ImagePublisher
+
 from rscameras.camera_d400 import Camera_D400
 
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -17,6 +20,8 @@ fps_list = []
 
 store_index = 1
 
+pub = fastcom.ImagePublisher.ImagePublisher(8889)
+
 while True:
     # Stack both images horizontally
     start_time = time.time()
@@ -24,17 +29,13 @@ while True:
     images = cam.get_images()
 
     # Show images
-    # images_show = np.hstack((images[0],images[1]))
+    images_show = np.hstack((images[0],images[1]))
 
     # cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
     # cv2.imshow('RealSense', images_show)
     
-    # FPS
-    fps = 1.0 / (time.time() - start_time)
-    if len(fps_list) > 120:
-        fps_list.pop(0)
-    fps_list.append(fps)
-    print("FPS: %.2f FPS_avg: %.2f" % (fps, np.mean(fps_list)))
+    # Publish images
+    pub.publish(images_show, 50)
 
     # Save images
     img_index = '{:06d}'.format(store_index)
@@ -45,5 +46,12 @@ while True:
     cv2.imwrite(img_depth_name, images[1])
 
     store_index += 1
+
+    # FPS
+    fps = 1.0 / (time.time() - start_time)
+    if len(fps_list) > 120:
+        fps_list.pop(0)
+    fps_list.append(fps)
+    print("FPS: %.2f FPS_avg: %.2f" % (fps, np.mean(fps_list)))
 
     cv2.waitKey(1)
